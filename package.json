@@ -4,6 +4,10 @@
   "description": "A normalizer for erschema",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -rf dist",
+    "build": "babel src --out-dir dist",
+    "type": "flow-copy-source -v src dist --ignore '*.test.*'",
+    "prepublish": "npm run clean && npm run build && npm run type",
     "test": "jest src",
     "flow": "flow",
     "flowtyped": "flow-typed"
@@ -30,6 +34,7 @@
     "babel-preset-stage-0": "^6.22.0",
     "chance": "^1.0.6",
     "flow-bin": "^0.41.0",
+    "flow-copy-source": "^1.1.0",
     "flow-typed": "^2.0.0",
     "jest": "^19.0.2"
   },
