@@ -9,19 +9,19 @@ export type $normalizeResponse = {
   relationships: $$mapOf<$$mapOf<$$numberMapOf<number | number[]>>>
 };
 
-export default function normalize(input: Object, entityName: string, schema: $schema) : $normalizeResponse {
+export default function normalize(input: Object, entityName: string, schema: $schema, startingSchema?: $schema) : $normalizeResponse {
   const entities = {}
   const relationships = {}
-  _normalizeRecursive(input, entityName, schema, entities, relationships)
+  _normalizeRecursive(input, entityName, schema, entities, relationships, startingSchema)
   return {entities, relationships}
 }
 
-const _normalizeRecursive = function (input, entityName, schema, entities, relationshipData) {
-  const entitySchema = schema[entityName]
+const _normalizeRecursive = function (input, entityName, schema, entities, relationshipData, startingSchema) {
+  const entitySchema = (startingSchema || schema)[entityName]
   if (!entitySchema){
     throw Error(`schema ${entityName} not defined`)
   }
-  const {modifier, relationships, idFunc, properties} = schema[entityName]
+  const {modifier, relationships, idFunc, properties} = entitySchema
   const usedRelationships = []
   const inputId = idFunc(input)
   relationships.forEach(relationshipSchema => {
