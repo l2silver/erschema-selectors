@@ -1,6 +1,7 @@
 // @flow
 import blacklist from 'blacklist'
 import {relationshipTypes} from 'erschema'
+import pick from 'lodash.pick'
 import type {$schema} from 'erschema/types'
 
 export type $normalizeResponse = {
@@ -8,7 +9,7 @@ export type $normalizeResponse = {
   relationships: $$mapOf<$$mapOf<$$numberMapOf<number | number[]>>>
 };
 
-export const normalize = function (input: Object, entityName: string, schema: $schema) : $normalizeResponse {
+export default function normalize(input: Object, entityName: string, schema: $schema) : $normalizeResponse {
   const entities = {}
   const relationships = {}
   _normalizeRecursive(input, entityName, schema, entities, relationships)
@@ -20,7 +21,7 @@ const _normalizeRecursive = function (input, entityName, schema, entities, relat
   if (!entitySchema){
     throw Error(`schema ${entityName} not defined`)
   }
-  const {modifier, relationships, idFunc} = schema[entityName]
+  const {modifier, relationships, idFunc, properties} = schema[entityName]
   const usedRelationships = []
   const inputId = idFunc(input)
   relationships.forEach(relationshipSchema => {
@@ -69,7 +70,7 @@ const _normalizeRecursive = function (input, entityName, schema, entities, relat
       }
     }
   })
-  _addToEntities(entities, entityName, usedRelationships, input, modifier, inputId)
+  _addToEntities(entities, entityName, usedRelationships, input, modifier, properties, inputId)
 }
 
 const _addToRelationships = function (relationships, entityName, relationshipName, entityId, values) {
@@ -82,13 +83,13 @@ const _addToRelationships = function (relationships, entityName, relationshipNam
   relationships[entityName][relationshipName][entityId] = values
 }
 
-const _addToEntities = function (entities, entityName, usedRelationships, entity, modifier, id) {
+const _addToEntities = function (entities, entityName, usedRelationships, entity, modifier, properties, id) {
   if (!entities[entityName]) {
     entities[entityName] = {}
   }
-  let nextEntity = entity
+  let nextEntity = pick(entity, properties)
   if (usedRelationships.length) {
-    nextEntity = blacklist.apply(null, [entity, ...usedRelationships])
+    nextEntity = blacklist.apply(null, [entity,...usedRelationships])
   }
   if (Object.keys(nextEntity).length > 1) {
     entities[entityName][id] = modifier ? modifier(nextEntity) : nextEntity

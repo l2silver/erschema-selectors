@@ -28,11 +28,14 @@
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
+    "chance": "^1.0.6",
     "flow-bin": "^0.41.0",
-    "flow-typed": "^2.0.0"
+    "flow-typed": "^2.0.0",
+    "jest": "^19.0.2"
   },
   "dependencies": {
     "blacklist": "^1.1.4",
-    "erschema": "^1.0.1"
+    "erschema": "^1.0.1",
+    "lodash.pick": "^4.4.0"
   }
 }
