@@ -25,14 +25,13 @@ const _normalizeRecursive = function (input, entityName, schema, entities, relat
   const usedRelationships = []
   const inputId = idFunc(input)
   relationships.forEach(relationshipSchema => {
-    const {variableRelationshipName} = relationshipSchema
+    const {variableRelationshipName, relationshipName} = relationshipSchema
     const variableIds = {}
-    const relationshipName = relationshipSchema.alias || relationshipSchema.name
     const relation = input[relationshipName]
 
     if (relation) {
       usedRelationships.push(relationshipName)
-      if (!relationshipSchema.type || relationshipSchema.type === relationshipTypes.MANY) {
+      if (relationshipSchema.type === relationshipTypes.MANY) {
         let relationshipIds = []
         relation.forEach(relatedEntity => {
           if (typeof relatedEntity === 'number') {

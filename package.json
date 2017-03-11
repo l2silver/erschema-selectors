@@ -1,7 +1,7 @@
 {
-  "name": "advanced-normalizr",
+  "name": "erschema-normalize",
   "version": "1.0.0",
-  "description": "A more powerful normalizr package",
+  "description": "A normalizer for erschema",
   "main": "index.js",
   "scripts": {
     "test": "jest src",
@@ -10,18 +10,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/l2silver/advanced-normalizr.git"
+    "url": "git+https://github.com/l2silver/erschema-normalize.git"
   },
   "keywords": [
-    "normalizr",
-    "advanced"
+    "erschema",
+    "normalize"
   ],
   "author": "Leigh Silverstein",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/l2silver/advanced-normalizr/issues"
+    "url": "https://github.com/l2silver/erschema-normalize/issues"
   },
-  "homepage": "https://github.com/l2silver/advanced-normalizr#readme",
+  "homepage": "https://github.com/l2silver/erschema-normalize#readme",
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.23.0",
