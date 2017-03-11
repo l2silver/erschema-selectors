@@ -1,0 +1,38 @@
+{
+  "name": "advanced-normalizr",
+  "version": "1.0.0",
+  "description": "A more powerful normalizr package",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest src",
+    "flow": "flow",
+    "flowtyped": "flow-typed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/l2silver/advanced-normalizr.git"
+  },
+  "keywords": [
+    "normalizr",
+    "advanced"
+  ],
+  "author": "Leigh Silverstein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/l2silver/advanced-normalizr/issues"
+  },
+  "homepage": "https://github.com/l2silver/advanced-normalizr#readme",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.23.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "flow-bin": "^0.41.0",
+    "flow-typed": "^2.0.0"
+  },
+  "dependencies": {
+    "blacklist": "^1.1.4",
+    "erschema": "^1.0.1"
+  }
+}
