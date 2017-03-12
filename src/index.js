@@ -1,3 +1,3 @@
 // @flow
-import normalize from './normalize'
-export default normalize
+import reducer from './reducer'
+export default reducer
