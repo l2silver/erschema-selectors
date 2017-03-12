@@ -1,5 +1,5 @@
 {
-  "name": "erschema-reducer",
+  "name": "erschema-selectors",
   "version": "1.0.0",
   "description": "A normalizer for erschema",
   "main": "index.js",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/l2silver/erschema-reducer.git"
+    "url": "git+https://github.com/l2silver/erschema-selectors.git"
   },
   "keywords": [
     "erschema",
@@ -24,9 +24,9 @@
   "author": "Leigh Silverstein",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/l2silver/erschema-reducer/issues"
+    "url": "https://github.com/l2silver/erschema-selectors/issues"
   },
-  "homepage": "https://github.com/l2silver/erschema-reducer#readme",
+  "homepage": "https://github.com/l2silver/erschema-selectors#readme",
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.23.0",
@@ -42,9 +42,6 @@
   },
   "dependencies": {
     "erschema": "^1.0.1",
-    "erschema-action-handlers": "^1.0.0",
-    "redux": "^3.6.0",
-    "redux-actions": "^2.0.1",
-    "redux-overlord": "^1.0.0"
+    "reselect": "^2.5.4"
   }
 }
