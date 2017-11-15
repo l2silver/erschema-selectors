@@ -110,7 +110,9 @@ export default class Selector <X> {
         idSelector,
         this.findManyRelationshipData(relationshipName),
       ],
-      (id: $$id, relationships: Map<string, OrderedSet<$$id>>) => (relationships.get(`${id}`) || defaultOrderedSet)
+      (id: $$id, relationships: Map<string, OrderedSet<$$id>>) => {
+        return (relationships.get(`${id}`) || defaultOrderedSet)
+      }
     )
   }
   getRelatedIds (relationshipName: string, idSelector?: $$idSelector = defaultIdSelector) : $$selector<List<$$id>> {
@@ -130,4 +132,52 @@ export default class Selector <X> {
       (id: $$id, relationships: Map<string, $$id>) => relationships.get(`${id}`, 0)
     )
   }
+}
+
+export class PageSelector<X> {
+  name: string;
+  model: X;
+  getErschemaReducer: Function;
+  constructor(erschemaReducerName: string | Function, name: string, model: X) {
+    this.name = name;
+    this.model = model;
+    this.getErschemaReducer = getErschemaReducer(erschemaReducerName);
+    bindMethods(
+      this,
+      'find',
+      'getRelatedIds',
+      'getRawRelatedIds',
+      'findRelatedId',
+    )
+  }
+  find = (): any => {
+    return (state: $$state) =>
+    this.getErschemaReducer(state).entities.pages.getIn([this.name]) || this.model;
+  };
+  getRelatedIds = (relationshipName: string): any => {
+    return createSelector(
+      [
+        this.getRawRelatedIds(relationshipName),
+      ],
+      (relatedIds: OrderedSet<$$id>) =>
+        (relatedIds || new OrderedSet()).toList()
+    );
+  };
+  getRawRelatedIds = (relationshipName: string): any => {
+    return state => {
+      if (!this.getErschemaReducer(state).relationships.pages[relationshipName]) {
+        throw new Error(
+          `Missing relationship ${relationshipName} in pages schema ${this
+            .name}`
+        );
+      }
+      return this.getErschemaReducer(state).relationships.pages[relationshipName].get(
+        this.name
+      );
+    }
+  };
+  findRelatedId = (relationshipName: string): any => {
+    return state =>
+    this.getErschemaReducer(state).relationships.pages[relationshipName].get(this.name);
+  };
 }
